@@ -1,4 +1,4 @@
-package com.sailfish.interview.concurrent.util;
+package com.sailfish.interview.concurrent.tools;
 
 import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
