@@ -1,9 +1,9 @@
-package com.sailfish.interview.algorithm;
+package com.sailfish.interview.algorithm.linkedlist;
 
 /**
  * https://leetcode-cn.com/problems/odd-even-linked-list/description/?utm_source=LCUS&utm_medium=ip_redirect_q_uns&utm_campaign=transfer2china
  */
-public class L328_OddEvenLinkedList {
+public class L_328_OddEvenLinkedList {
 
     /**
      * Definition for singly-linked list.
