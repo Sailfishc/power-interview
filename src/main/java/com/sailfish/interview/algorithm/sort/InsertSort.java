@@ -26,12 +26,32 @@ public class InsertSort {
     }
 
 
+
+    public static int[] insertSort2(int[] arr, int n) {
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0; j--) {
+                if (arr[j] < arr[j-1]) {
+                    // 移动数据
+                    int tmp = arr[j];
+                    arr[j] = arr[j - 1];
+                    arr[j - 1] = tmp;
+                } else {
+                    break;
+                }
+            }
+        }
+        return arr;
+    }
+
+
     public static void main(String[] args) {
         final int[] array = SortTestHelper.generateRandomArray(10, 1, 50);
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + "  ");
         }
-        final int[] arr = insertSort(array, array.length);
+//        final int[] arr = insertSort(array, array.length);
+        final int[] arr = insertSort2(array, array.length);
+
         for (int i = 0; i < arr.length; i++) {
             System.out.println(arr[i]);
         }
