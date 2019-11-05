@@ -7,11 +7,11 @@ package com.sailfish.interview.algorithm.sort;
  */
 public class BubbleSort {
 
-    public static int[] bubbleSort(int[] arr) {
+    public static int[] bubbleSort(int[] arr, int n) {
         int count = 0;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < n; i++) {
             boolean isSwap = false;
-            for (int j = 0; j < arr.length - i - 1; j++) {
+            for (int j = 0; j < n - i - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
                     int tmp = arr[j];
                     arr[j] = arr[j+1];
@@ -29,9 +29,9 @@ public class BubbleSort {
     }
 
     public static void main(String[] args) {
-//        int[] arr = new int[]{0, 3, 2, 1, 6, 5};
-        int[] arr = new int[]{6, 5, 4, 3, 2, 1};
-        final int[] ints = bubbleSort(arr);
+        int[] arr = new int[]{0, 3, 2, 1, 6, 5};
+//        int[] arr = new int[]{6, 5, 4, 3, 2, 1};
+        final int[] ints = bubbleSort(arr, arr.length);
         for (int i = 0; i < ints.length; i++) {
             System.out.println(ints[i]);
         }
