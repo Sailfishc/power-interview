@@ -24,4 +24,48 @@ public class BSTreeTest {
         }
         System.out.println(tree.size());
     }
+
+
+    @Test
+    public void addNode() {
+        BSTree<Integer> tree = assemblyTree();
+        System.out.println(tree.size());
+    }
+
+    private BSTree<Integer> assemblyTree() {
+        BSTree<Integer> tree = new BSTree<>();
+
+        final Integer[] arr = ArrayGenHelper.generateRandomArr(3, 1, 20);
+        ArrayGenHelper.printArray(arr);
+
+        for (Integer num : arr) {
+            tree.addNode(num);
+        }
+        return tree;
+    }
+
+
+    @Test
+    public void containNode() {
+        BSTree<Integer> tree = assemblyTree();
+        System.out.println(tree.contains(300));
+
+        tree.add(3);
+        System.out.println(tree.contains(3));
+    }
+
+
+    @Test
+    public void middleTraverse() {
+        BSTree<Integer> tree = assemblyTree();
+
+        tree.middleTraverse();
+    }
+
+
+    @Test
+    public void testToString() {
+        BSTree<Integer> tree = assemblyTree();
+        System.out.println(tree.toString());
+    }
 }
