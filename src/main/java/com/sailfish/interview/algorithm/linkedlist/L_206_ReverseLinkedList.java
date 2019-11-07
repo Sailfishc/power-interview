@@ -1,5 +1,7 @@
 package com.sailfish.interview.algorithm.linkedlist;
 
+import com.sailfish.interview.algorithm.sort.ArrayGenHelper;
+
 /**
  * L206:反转链表
  *
@@ -46,19 +48,13 @@ public class L_206_ReverseLinkedList {
     }
 
     public static void main(String[] args) {
-//        1->2->3->4->5->NULL
-        ListNode node1 = new ListNode(1);
-        ListNode node2 = new ListNode(2);
-        ListNode node3 = new ListNode(3);
-        ListNode node4 = new ListNode(4);
-        ListNode node5 = new ListNode(5);
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node5;
-        node5.next = null;
+        final Integer[] arr = ArrayGenHelper.generateRandomArr(10, 1, 20);
+        final ListNode node = ListNode.genListNode(arr);
+        ListNode.printListNode(node);
         Solution solution = new Solution();
-        final ListNode listNode = solution.reverseList(node1);
-        System.out.println(listNode.val);
+        final ListNode listNode = solution.reverseList(node);
+        ListNode.printListNode(listNode);
     }
+
+
 }
