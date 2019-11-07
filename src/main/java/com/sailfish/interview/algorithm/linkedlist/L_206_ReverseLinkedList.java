@@ -49,11 +49,11 @@ public class L_206_ReverseLinkedList {
 
     public static void main(String[] args) {
         final Integer[] arr = ArrayGenHelper.generateRandomArr(10, 1, 20);
-        final ListNode node = ListNode.genListNode(arr);
-        ListNode.printListNode(node);
+        final ListNode node = ListNodeHelper.genListNode(arr);
+        ListNodeHelper.printListNode(node);
         Solution solution = new Solution();
         final ListNode listNode = solution.reverseList(node);
-        ListNode.printListNode(listNode);
+        ListNodeHelper.printListNode(listNode);
     }
 
 
