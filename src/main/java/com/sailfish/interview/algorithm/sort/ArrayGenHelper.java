@@ -7,7 +7,7 @@ import java.util.Random;
  * @author sailfish
  * @create 2019-11-05-5:16 下午
  */
-public class SortTestHelper {
+public class ArrayGenHelper {
 
 
     /**
@@ -34,7 +34,7 @@ public class SortTestHelper {
 
 
     // SortTestHelper不允许产生任何实例
-    private SortTestHelper(){}
+    private ArrayGenHelper(){}
 
     // 生成有n个元素的随机数组,每个元素的随机范围为[rangeL, rangeR]
     public static Integer[] generateRandomArr(int n, int rangeL, int rangeR) {

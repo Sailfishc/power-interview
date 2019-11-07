@@ -55,7 +55,7 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        final int[] arr = SortTestHelper.generateRandomArray(10, 1, 50);
+        final int[] arr = ArrayGenHelper.generateRandomArray(10, 1, 50);
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + "  ");
         }

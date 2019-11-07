@@ -45,7 +45,7 @@ public class InsertSort {
 
 
     public static void main(String[] args) {
-        final int[] array = SortTestHelper.generateRandomArray(10, 1, 50);
+        final int[] array = ArrayGenHelper.generateRandomArray(10, 1, 50);
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + "  ");
         }
