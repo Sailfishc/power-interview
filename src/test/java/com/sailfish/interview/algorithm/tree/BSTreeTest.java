@@ -35,7 +35,7 @@ public class BSTreeTest {
     private BSTree<Integer> assemblyTree() {
         BSTree<Integer> tree = new BSTree<>();
 
-        final Integer[] arr = ArrayGenHelper.generateRandomArr(3, 1, 20);
+        final Integer[] arr = ArrayGenHelper.generateRandomArr(8, 1, 20);
         ArrayGenHelper.printArray(arr);
 
         for (Integer num : arr) {
@@ -57,9 +57,14 @@ public class BSTreeTest {
 
     @Test
     public void middleTraverse() {
-        BSTree<Integer> tree = assemblyTree();
+        BSTree<Integer> bsTree = assemblyTree();
 
-        tree.middleTraverse();
+        System.out.println("----------");
+
+        bsTree.middleTraverse();
+        System.out.println("----------");
+
+        System.out.println(bsTree);
     }
 
 
@@ -67,5 +72,20 @@ public class BSTreeTest {
     public void testToString() {
         BSTree<Integer> tree = assemblyTree();
         System.out.println(tree.toString());
+    }
+
+
+    @Test
+    public void testGetMinNode() {
+        BSTree<Integer> treeNode = assemblyTree();
+        System.out.println(treeNode.findMinNode());
+
+    }
+
+
+    @Test
+    public void testMaxNode() {
+        BSTree<Integer> treeNode = assemblyTree();
+        System.out.println(treeNode.findMaxNode());
     }
 }

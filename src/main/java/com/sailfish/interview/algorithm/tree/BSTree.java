@@ -76,7 +76,7 @@ public class BSTree<E extends Comparable<E>> {
 
 
     /**
-     * 中序遍历
+     * 前序遍历
      *
      * @return
      */
@@ -86,17 +86,82 @@ public class BSTree<E extends Comparable<E>> {
     }
 
 
+    /**
+     * 中序遍历
+     */
     public void middleTraverse() {
         middleTraverse(root);
     }
 
 
+    /**
+     * 后续遍历
+     */
+    public void afterTraverse() {
+        afterTraverse(root);
+    }
+
+
+    /**
+     * 查询最小的节点
+     * 规则：左子树的的下一个节点为NULL为最小节点
+     *
+     * @return
+     */
+    public E findMinNode() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("BSTree is empty");
+        }
+        final Node minNode = findMinNode(root);
+        return minNode.e;
+    }
+
+
+    /**
+     * 查询最小的节点
+     * 规则：左子树的的下一个节点为NULL为最小节点
+     *
+     * @return
+     */
+    public E findMaxNode() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("BSTree is empty");
+        }
+        final Node maxNode = findMaxNode(root);
+        return maxNode.e;
+    }
+
+    private Node findMaxNode(Node node) {
+        if (node.right == null) {
+            return node;
+        }
+        return findMaxNode(node.right);
+    }
+
+    private Node findMinNode(Node node) {
+        if (node.left == null) {
+            return node;
+        }
+        return findMinNode(node.left);
+    }
+
+
+    private void afterTraverse(Node node) {
+        if (node == null) {
+            return;
+        }
+
+        afterTraverse(node.left);
+        afterTraverse(node.right);
+        System.out.println(node.e);
+    }
+
     private void middleTraverse(Node node) {
-        if (root == null) {
+        if (node == null) {
             return;
         }
         middleTraverse(node.left);
-        System.out.println(node);
+        System.out.println(node.e);
         middleTraverse(node.right);
     }
 
@@ -108,9 +173,6 @@ public class BSTree<E extends Comparable<E>> {
         preTraverse(node.left);
         preTraverse(node.right);
     }
-
-
-
 
 
     private boolean contains(Node node, E e) {
@@ -175,21 +237,29 @@ public class BSTree<E extends Comparable<E>> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        generateSBTString(root, 1, sb);
+        generateString(root, 0, sb);
         return sb.toString();
     }
 
-    private void generateSBTString(Node node, int depth, StringBuilder sb) {
-        if (node == null) {
+    // 生成以node为根节点，深度为depth的描述二叉树的字符串
+    private void generateString(Node node, int depth, StringBuilder res){
+
+        if(node == null){
+            res.append(generateDepthString(depth) + "null\n");
             return;
         }
-        for (int i = 0; i < depth; i++) {
-            sb.append("--");
+
+        res.append(generateDepthString(depth) + node.e + "\n");
+        generateString(node.left, depth + 1, res);
+        generateString(node.right, depth + 1, res);
+    }
+
+    private String generateDepthString(int depth){
+        StringBuilder res = new StringBuilder();
+        for(int i = 0 ; i < depth ; i ++){
+            res.append("--");
         }
-        sb.append(node.e);
 
-        generateSBTString(node.left, depth++, sb);
-        generateSBTString(node.right, depth++, sb);
-
+        return res.toString();
     }
 }
