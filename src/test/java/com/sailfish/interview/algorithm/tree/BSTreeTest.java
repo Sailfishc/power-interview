@@ -88,4 +88,14 @@ public class BSTreeTest {
         BSTree<Integer> treeNode = assemblyTree();
         System.out.println(treeNode.findMaxNode());
     }
+
+
+    @Test
+    public void testLevelOrder() {
+        BSTree<Integer> treeNode = assemblyTree();
+        System.out.println("----------");
+        System.out.println(treeNode);
+        System.out.println("----------");
+        treeNode.levelTraverse();
+    }
 }

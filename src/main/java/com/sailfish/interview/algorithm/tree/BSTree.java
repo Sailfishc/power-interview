@@ -1,5 +1,8 @@
 package com.sailfish.interview.algorithm.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * 二分搜索树
  *
@@ -130,6 +133,32 @@ public class BSTree<E extends Comparable<E>> {
         final Node maxNode = findMaxNode(root);
         return maxNode.e;
     }
+
+    /**
+     * 层级遍历
+     *
+     */
+    public void levelTraverse() {
+        if (root == null) {
+            return;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            Node cur = q.remove();
+            // 对Node的操作
+            System.out.println(cur.e);
+
+            if (cur.left != null) {
+                q.add(cur.left);
+            }
+
+            if (cur.right != null){
+                q.add(cur.right);
+            }
+        }
+    }
+
 
     private Node findMaxNode(Node node) {
         if (node.right == null) {
