@@ -1,6 +1,7 @@
 package com.sailfish.interview.algorithm.recursion;
 
-import com.sailfish.interview.algorithm.sort.SortTestHelper;
+
+import com.sailfish.interview.algorithm.sort.ArrayGenHelper;
 
 public class SumRecursionDemo {
 
@@ -18,7 +19,7 @@ public class SumRecursionDemo {
     }
 
     public static void main(String[] args) {
-        final int[] arr = SortTestHelper.generateRandomArray(3, 1, 100);
+        final int[] arr = ArrayGenHelper.generateRandomArray(3, 1, 100);
         for (int i = 0; i < arr.length; i++) {
             System.out.printf(arr[i] + " ");
         }
