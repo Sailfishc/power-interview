@@ -1,7 +1,7 @@
 package com.sailfish.interview.algorithm.tree;
 
 import com.sailfish.interview.algorithm.sort.ArrayGenHelper;
-import com.sailfish.interview.dataStructure.tree.BSTree;
+import com.sailfish.interview.dataStructure.bstree.BSTree;
 
 import org.junit.Test;
 

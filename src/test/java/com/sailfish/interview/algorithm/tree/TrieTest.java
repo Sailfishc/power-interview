@@ -1,6 +1,6 @@
 package com.sailfish.interview.algorithm.tree;
 
-import com.sailfish.interview.dataStructure.tree.Trie;
+import com.sailfish.interview.dataStructure.trie.Trie;
 import com.sailfish.interview.util.FileOperation;
 import org.junit.Test;
 

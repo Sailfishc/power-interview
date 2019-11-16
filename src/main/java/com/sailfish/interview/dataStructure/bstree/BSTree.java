@@ -1,4 +1,4 @@
-package com.sailfish.interview.dataStructure.tree;
+package com.sailfish.interview.dataStructure.bstree;
 
 import java.util.LinkedList;
 import java.util.Queue;

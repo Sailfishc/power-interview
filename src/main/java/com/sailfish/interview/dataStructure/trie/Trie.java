@@ -1,4 +1,4 @@
-package com.sailfish.interview.dataStructure.tree;
+package com.sailfish.interview.dataStructure.trie;
 
 import java.util.Map;
 import java.util.TreeMap;
