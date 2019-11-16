@@ -433,13 +433,86 @@ public class AVLTree<E extends Comparable<E>> {
         // 计算平衡因子
         final int balanceFactory = getBalanceFactory(node);
 
-        if (Math.abs(balanceFactory) > 1) {
-            // 要进行翻转，保持平衡
-            System.out.println("tree balance Factory:  " + balanceFactory);
+//        if (Math.abs(balanceFactory) > 1) {
+//            // 要进行翻转，保持平衡
+//            System.out.println("tree balance Factory:  " + balanceFactory);
+//        }
+
+        // 对搜索树进行翻转操作
+        // LL RR LR RL 四种操作
+        if (balanceFactory > 1 && getBalanceFactory(node.left) >= 0) {
+            // LL场景
+            return rightFlip(node);
         }
+
+        if (balanceFactory < -1 && getBalanceFactory(node.right) <= 0) {
+            // RR
+            return leftFlip(node);
+        }
+
+        if (balanceFactory > 1 && getBalanceFactory(node.left) < 0) {
+            // LR场景
+            node.left = leftFlip(node.left);
+            return rightFlip(node);
+        }
+
+        if (balanceFactory < -1 && getBalanceFactory(node.right) > 0) {
+            // RR
+            node.right = rightFlip(node.right);
+            return leftFlip(node);
+        }
+
         return node;
     }
 
+
+    // 对节点y进行向右旋转操作，返回旋转后新的根节点x
+    //        y                              x
+    //       / \                           /   \
+    //      x   T4     向右旋转 (y)        z     y
+    //     / \       - - - - - - - ->    / \   / \
+    //    z   T3                       T1  T2 T3 T4
+    //   / \
+    // T1   T2
+    private Node rightFlip(Node y) {
+
+        final Node x = y.left;
+        final Node T3 = x.right;
+
+        x.right = y;
+        y.left = T3;
+
+        // 计算高度
+        y.height = 1 + Math.max(getHeight(y.left), getHeight(y.right));
+        x.height = 1 + Math.max(getHeight(x.left), getHeight(x.right));
+
+        return x;
+    }
+
+
+
+    // 对节点y进行向左旋转操作，返回旋转后新的根节点x
+    //    y                             x
+    //  /  \                          /   \
+    // T1   x      向左旋转 (y)       y     z
+    //     / \   - - - - - - - ->   / \   / \
+    //   T2  z                     T1 T2 T3 T4
+    //      / \
+    //     T3 T4
+    private Node leftFlip(Node y) {
+
+        final Node x = y.right;
+        final Node T2 = x.left;
+
+        x.left = y;
+        y.left = T2;
+
+        // 计算高度
+        y.height = 1 + Math.max(getHeight(y.left), getHeight(y.right));
+        x.height = 1 + Math.max(getHeight(x.left), getHeight(x.right));
+
+        return x;
+    }
 
 
     // 递归添加
