@@ -1,4 +1,4 @@
-package com.sailfish.interview.algorithm.tree;
+package com.sailfish.interview.dataStructure.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -159,6 +159,115 @@ public class BSTree<E extends Comparable<E>> {
         }
     }
 
+
+    /**
+     * 删除最小节点
+     *
+     * @return
+     */
+    public E removeMin() {
+        final E min = findMinNode();
+        removeMin(root);
+        return min;
+    }
+
+
+    /**
+     * 1. 查找最小节点
+     * 2. 最小节点右子节点为空，直接删除
+     * 3. 最小节点右子节点不为空，将右子节点设置为当前节点
+     * @param node
+     * @return
+     */
+    private Node  removeMin(Node node) {
+
+        // 终止条件
+        if (node.left == null) {
+            final Node rightNode = node.right;
+            size--;
+            node.right = null;
+            return rightNode;
+        }
+
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+
+    /**
+     * 删除最大节点
+     *
+     * @return
+     */
+    public E removeMax() {
+        final E max = findMaxNode();
+        removeMax(root);
+        return max;
+    }
+
+
+    // 从二分搜索树中删除元素为e的节点
+    public void remove(E e){
+        root = remove(root, e);
+    }
+
+    // 删除掉以node为根的二分搜索树中值为e的节点, 递归算法
+    // 返回删除节点后新的二分搜索树的根
+    private Node remove(Node node, E e){
+        if (node == null) {
+            return null;
+        }
+        if (e.compareTo(node.e) < 0) {
+            node.left = remove(node.left, e);
+            return node;
+        } else if (e.compareTo(node.e) > 0) {
+            node.right = remove(node.right, e);
+            return node;
+        } else {
+            // 相等，要删除
+            if (node.left == null) {
+                final Node rightNode = node.right;
+                size--;
+                node.right = null;
+                return rightNode;
+            } else if (node.right == null) {
+                final Node leftNode = node.left;
+                size--;
+                node.left = null;
+                return leftNode;
+            }
+
+            // 左边不为空，左右也不为空的情况
+
+            // 找到比待删除节点大的最小节点, 即待删除节点右子树的最小节点
+            // 用这个节点顶替待删除节点的位置
+            final Node successor = findMinNode(node.right);
+            // 保持二叉树特性，node右子树的最小节点当做当前节点
+            successor.right = removeMin(node.right);
+            successor.left = node.left;
+
+            node.left = node.right = null;
+            return successor;
+        }
+    }
+
+    /**
+     * @param node
+     * @return
+     */
+    private Node  removeMax(Node node) {
+
+        // 终止条件
+        if (node.right == null) {
+            final Node leftNode = node.left;
+            size--;
+            node.left = null;
+            return leftNode;
+        }
+
+        node.right = removeMax(node.right);
+        return node;
+    }
 
     private Node findMaxNode(Node node) {
         if (node.right == null) {

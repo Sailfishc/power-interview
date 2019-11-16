@@ -1,12 +1,10 @@
 package com.sailfish.interview.algorithm.tree;
 
+import com.sailfish.interview.dataStructure.tree.Trie;
 import com.sailfish.interview.util.FileOperation;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class TrieTest {
 

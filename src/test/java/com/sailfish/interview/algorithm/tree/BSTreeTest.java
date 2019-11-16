@@ -1,10 +1,9 @@
 package com.sailfish.interview.algorithm.tree;
 
 import com.sailfish.interview.algorithm.sort.ArrayGenHelper;
+import com.sailfish.interview.dataStructure.tree.BSTree;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * @author sailfish
@@ -97,5 +96,26 @@ public class BSTreeTest {
         System.out.println(treeNode);
         System.out.println("----------");
         treeNode.levelTraverse();
+    }
+
+
+    @Test
+    public void test_remove_min_node() {
+        BSTree<Integer> treeNode = assemblyTree();
+        System.out.println("----------");
+        System.out.println(treeNode.removeMin());
+    }
+
+
+    @Test
+    public void test_remove_max_node() {
+        BSTree<Integer> treeNode = assemblyTree();
+        System.out.println("----------");
+        System.out.println(treeNode);
+        System.out.println("----------");
+
+        System.out.println(treeNode.removeMax());
+        System.out.println("----------");
+        System.out.println(treeNode);
     }
 }
