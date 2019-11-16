@@ -4,19 +4,19 @@ package com.sailfish.interview.dataStructure.unionfind;
  * @author sailfish
  * @create 2019-11-16-4:38 下午
  */
-public class QuickUnionOptimized implements UF{
+public class QuickUnionOptimizedRank implements UF{
 
     // 链式结构
     private int[] parent;
-    private int[] sc;   // sc[i]表示以i为根的集合的元素个数
+    private int[] rank;   // rank[i]表示以i为根的集合的元素高度
 
-    public QuickUnionOptimized(int n) {
+    public QuickUnionOptimizedRank(int n) {
         parent = new int[n];
-        sc = new int[n];
+        rank = new int[n];
 
         for (int i = 0; i < parent.length; i++) {
             parent[i] = i;
-            sc[i] = 1;
+            rank[i] = 1;
         }
     }
 
@@ -42,12 +42,14 @@ public class QuickUnionOptimized implements UF{
 
         // 根据两个元素所在树的元素个数不同判断合并方向
         // 将元素个数少的集合合并到元素个数多的集合上
-        if (sc[pRoot] < sc[qRoot]) {
+        if (rank[pRoot] < rank[qRoot]) {
             parent[pRoot] = qRoot;
-            sc[qRoot] += sc[pRoot];
-        } else {
+        } else if (rank[pRoot] > rank[qRoot]) {
             parent[qRoot] = pRoot;
-            sc[pRoot] += sc[qRoot];
+        } else {
+            // 等于，要将rank[i]+1
+            parent[qRoot] = pRoot;
+            rank[pRoot] += 1;
         }
     }
 
