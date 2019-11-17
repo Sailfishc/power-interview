@@ -123,7 +123,7 @@ public class Array<E> {
         final E res = data[index];
 
         // 删除
-        for (int i = index - 1; i < size; i++) {
+        for (int i = index + 1; i < size; i++) {
             data[i - 1] = data[i];
         }
 
@@ -154,6 +154,18 @@ public class Array<E> {
                 remove(i);
             }
         }
+    }
+
+    /**
+     * 交换两个元素
+     *
+     * @param p
+     * @param q
+     */
+    public void swap(int p, int q) {
+        E temp = data[p];
+        data[p] = data[q];
+        data[q] = temp;
     }
 
     @Override
