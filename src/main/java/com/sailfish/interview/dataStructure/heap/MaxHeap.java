@@ -76,6 +76,16 @@ public class MaxHeap<E extends Comparable<E>> {
         return max;
     }
 
+
+    // 取出堆中的最大元素，并且替换成元素e
+    public E replace(E e){
+
+        E ret = findMax();
+        data.set(0, e);
+        siftDown(0);
+        return ret;
+    }
+
     private void siftDown(int k) {
         // 循环
         while (leftChild(k) < data.getSize()) {
