@@ -32,5 +32,11 @@ public class AVLTreeTest {
         System.out.println("The Tree is AVLTree: " + tree.isBalance());
 
 
+        for (String s : list) {
+            tree.remove(s);
+            if (!tree.isBST() || !tree.isBalance()) {
+                throw new RuntimeException("Error");
+            }
+        }
     }
 }

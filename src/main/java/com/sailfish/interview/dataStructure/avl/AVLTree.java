@@ -297,42 +297,61 @@ public class AVLTree<E extends Comparable<E>> {
 
     // 删除掉以node为根的二分搜索树中值为e的节点, 递归算法
     // 返回删除节点后新的二分搜索树的根
-    private Node remove(Node node, E e){
+    private Node remove(Node node, E e) {
         if (node == null) {
             return null;
         }
+
+        Node retNode;
         if (e.compareTo(node.e) < 0) {
             node.left = remove(node.left, e);
-            return node;
+            // return node;
+            retNode = node;
         } else if (e.compareTo(node.e) > 0) {
             node.right = remove(node.right, e);
-            return node;
-        } else {
-            // 相等，要删除
+            // return node;
+            retNode = node;
+        } else {   // key.compareTo(node.key) == 0
+
+            // 待删除节点左子树为空的情况
             if (node.left == null) {
-                final Node rightNode = node.right;
-                size--;
+                Node rightNode = node.right;
                 node.right = null;
-                return rightNode;
-            } else if (node.right == null) {
-                final Node leftNode = node.left;
                 size--;
-                node.left = null;
-                return leftNode;
+                // return rightNode;
+                retNode = rightNode;
             }
 
-            // 左边不为空，左右也不为空的情况
+            // 待删除节点右子树为空的情况
+            else if (node.right == null) {
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                // return leftNode;
+                retNode = leftNode;
+            }
 
-            // 找到比待删除节点大的最小节点, 即待删除节点右子树的最小节点
-            // 用这个节点顶替待删除节点的位置
-            final Node successor = findMinNode(node.right);
-            // 保持二叉树特性，node右子树的最小节点当做当前节点
-            successor.right = removeMin(node.right);
-            successor.left = node.left;
+            // 待删除节点左右子树均不为空的情况
+            else {
+                // 找到比待删除节点大的最小节点, 即待删除节点右子树的最小节点
+                // 用这个节点顶替待删除节点的位置
+                Node successor = findMinNode(node.right);
+                //successor.right = removeMin(node.right);
+                successor.right = remove(node.right, successor.e);
+                successor.left = node.left;
 
-            node.left = node.right = null;
-            return successor;
+                node.left = node.right = null;
+
+                // return successor;
+                retNode = successor;
+            }
         }
+        if (retNode == null) {
+            return null;
+        }
+
+        // 进行翻转操作（AVL）
+        return flipNode(retNode);
     }
 
     /**
@@ -426,7 +445,10 @@ public class AVLTree<E extends Comparable<E>> {
         } else {
             node.e = e;
         }
+       return flipNode(node);
+    }
 
+    private Node flipNode(Node node) {
         // 添加完Node后需要维护Height
         node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
 
@@ -461,29 +483,6 @@ public class AVLTree<E extends Comparable<E>> {
             node.right = rightFlip(node.right);
             return leftFlip(node);
         }
-
-        // 更新height
-//        node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
-//
-//        // 计算平衡因子
-//        int balanceFactor = getBalanceFactor(node);
-//
-//        // 平衡维护
-//        if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0)
-//            return rightRotate(node);
-//
-//        if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0)
-//            return leftRotate(node);
-//
-//        if (balanceFactor > 1 && getBalanceFactor(node.left) < 0) {
-//            node.left = leftRotate(node.left);
-//            return rightRotate(node);
-//        }
-//
-//        if (balanceFactor < -1 && getBalanceFactor(node.right) > 0) {
-//            node.right = rightRotate(node.right);
-//            return leftRotate(node);
-//        }
 
         return node;
     }
