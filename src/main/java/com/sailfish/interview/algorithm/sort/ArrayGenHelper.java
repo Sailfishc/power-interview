@@ -70,6 +70,18 @@ public class ArrayGenHelper {
         return arr;
     }
 
+
+    public static Integer[] generateOrderedArray(int n) {
+
+        assert n > 0;
+
+        Integer[] arr = new Integer[n];
+
+        for (int i = 0; i < n; i++)
+            arr[i] = i;
+        return arr;
+    }
+
     // 打印arr数组的所有内容
     public static void printArray(Object[] arr) {
 
