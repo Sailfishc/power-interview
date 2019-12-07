@@ -129,6 +129,21 @@ public class ArrayGenHelper {
         }
     }
 
+    /**
+     * 打印数组
+     *
+     * @param arr
+     */
+    public static void printArr(int[] arr) {
+        StringBuilder sb = new StringBuilder("arr=[");
+        for (int i : arr) {
+            sb.append(i)
+                    .append(", ");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append("]");
+        System.out.println(sb.toString());
+    }
 
 
     public static void main(String[] args) {

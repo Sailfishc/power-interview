@@ -3,32 +3,26 @@ package com.sailfish.interview.algorithm.sort;
 import java.util.Arrays;
 
 /**
- * 归并排序
+ * 归并排序(自底向上）
+ * 因为子底向上的归并排序没有用到数组索引（mergeSort方法中），可以扩充到链表
  *
  * @author sailfish
  * @create 2019-11-05-5:55 下午
  */
-public class MergeSort {
+public class MergeSortBU {
 
 
     public static void mergeSort(int[] arr, int n) {
 
-        sorts(arr, 0, n - 1);
-    }
-
-    private static void sorts(int[] arr, int l, int r) {
-        if (l >= r) {
-            return;
-        }
-
-        int mid = (l + r) / 2;
-        sorts(arr, l, mid);
-        sorts(arr, mid + 1, r);
-        if (arr[mid] > arr[mid + 1]) {
-            merge(arr, l, mid, r);
+        // sz代表：Merge的元素个数
+        for (int sz = 1; sz <= n; sz += sz) {
+            for (int i = 0; i + sz < n; i += sz + sz) {
+                merge(arr, i, i + sz - 1, Math.min(i + sz + sz - 1, n - 1));
+            }
         }
 
     }
+
 
     private static void merge(int[] arr, int l, int mid, int r) {
 
