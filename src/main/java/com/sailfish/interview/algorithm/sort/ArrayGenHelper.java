@@ -146,6 +146,20 @@ public class ArrayGenHelper {
     }
 
 
+
+    /**
+     * 交换两个元素
+     *
+     * @param arr
+     * @param i
+     * @param j
+     */
+    public static void swap(int[] arr, int i, int j) {
+        int temp = arr[j];
+        arr[j] = arr[i];
+        arr[i] = temp;
+    }
+
     public static void main(String[] args) {
         final int[] array = generateRandomArray(5, 1, 5);
         for (int i = 0; i < array.length; i++) {
