@@ -1,4 +1,9 @@
-package com.sailfish.interview.pattern.canTestCode;
+package com.sailfish.interview.pattern.canTestCode.good.step2;
+
+import com.sailfish.interview.pattern.canTestCode.STATUS;
+import com.sailfish.interview.pattern.canTestCode.WalletRpcService;
+import com.sailfish.interview.pattern.canTestCode.bad.IdGenerator;
+import com.sailfish.interview.pattern.canTestCode.bad.RedisDistributedLock;
 
 import javax.transaction.InvalidTransactionException;
 
@@ -6,7 +11,7 @@ import javax.transaction.InvalidTransactionException;
  * @author sailfish
  * @create 2020-01-14-6:42 PM
  */
-public class Transaction {
+public class TransactionStep2 {
 
     private String id;
     private Long buyerId;
@@ -19,8 +24,24 @@ public class Transaction {
     private String walletTransactionId;
 
 
-    public Transaction(String preAssignedId, Long buyerId, Long sellerId, Long productId,
-                       String orderId, Double amount) {
+    // 依赖注入是实现代码可测试性的最有效的手段。我们可以应用 依赖注入，将 WalletRpcService 对象的创建反转给上层逻辑，在外部创建好之后，再注入 到 Transaction 类中
+    // Begin
+    private WalletRpcService walletRpcService;
+
+    public void setWalletRpcService(WalletRpcService walletRpcService) {
+        this.walletRpcService = walletRpcService;
+    }
+
+    //    step2
+    private TransactionLock transactionLock;
+
+    public void setTransactionLock(TransactionLock transactionLock) {
+        this.transactionLock = transactionLock;
+    }
+// End
+
+    public TransactionStep2(String preAssignedId, Long buyerId, Long sellerId, Long productId,
+                            String orderId, Double amount) {
         if (preAssignedId != null && !preAssignedId.isEmpty()) {
             this.id = preAssignedId;
         } else {
@@ -46,13 +67,14 @@ public class Transaction {
         if (status == STATUS.EXECUTED) return true;
         boolean isLocked = false;
         try {
-            isLocked = RedisDistributedLock.getSingletonIntance().lockTransction(id);
+//            删除获取分布式锁
+//            isLocked = RedisDistributedLock.getSingletonInstance().lockTransaction(id);
+            isLocked = transactionLock.lock(id);
             if (!isLocked) {
                 return false; // 锁定未成功，返回 false，job 兜底执行
             }
             if (status == STATUS.EXECUTED) {
                 return true; // double check
-
             }
             long executionInvokedTimestamp = System.currentTimeMillis();
             if (executionInvokedTimestamp - createTimestamp > 14) {
@@ -60,7 +82,9 @@ public class Transaction {
                 return false;
             }
 
-            WalletRpcService walletRpcService = new WalletRpcService();
+//            删除在内部手动创建
+//            WalletRpcService walletRpcService = new WalletRpcService();
+
             String walletTransactionId = walletRpcService.moveMoney(id, buyerId, sellerId);
             if (walletTransactionId != null) {
                 this.walletTransactionId = walletTransactionId;
@@ -72,7 +96,9 @@ public class Transaction {
             }
         } finally {
             if (isLocked) {
-                RedisDistributedLock.getSingletonIntance().unlockTransction(id);
+                //            删除释放分布式锁
+//                RedisDistributedLock.getSingletonInstance().unlockTransaction(id);
+                transactionLock.unLock(id);
             }
         }
     }
@@ -118,10 +144,6 @@ public class Transaction {
         this.orderId = orderId;
     }
 
-    public void setCreateTimestamp(Long createTimestamp) {
-        this.createTimestamp = createTimestamp;
-    }
-
     public Double getAmount() {
         return amount;
     }
@@ -138,11 +160,4 @@ public class Transaction {
         this.status = status;
     }
 
-    public String getWalletTransactionId() {
-        return walletTransactionId;
-    }
-
-    public void setWalletTransactionId(String walletTransactionId) {
-        this.walletTransactionId = walletTransactionId;
-    }
 }

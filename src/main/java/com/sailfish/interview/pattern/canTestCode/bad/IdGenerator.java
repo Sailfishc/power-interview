@@ -1,4 +1,4 @@
-package com.sailfish.interview.pattern.canTestCode;
+package com.sailfish.interview.pattern.canTestCode.bad;
 
 /**
  * @author sailfish
