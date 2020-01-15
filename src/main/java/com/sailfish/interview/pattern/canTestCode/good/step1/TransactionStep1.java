@@ -61,7 +61,7 @@ public class TransactionStep1 {
         if (status == STATUS.EXECUTED) return true;
         boolean isLocked = false;
         try {
-            isLocked = RedisDistributedLock.getSingletonIntance().lockTransaction(id);
+            isLocked = RedisDistributedLock.getSingletonInstance().lockTransaction(id);
             if (!isLocked) {
                 return false; // 锁定未成功，返回 false，job 兜底执行
             }
@@ -88,7 +88,7 @@ public class TransactionStep1 {
             }
         } finally {
             if (isLocked) {
-                RedisDistributedLock.getSingletonIntance().unlockTransction(id);
+                RedisDistributedLock.getSingletonInstance().unlockTransaction(id);
             }
         }
     }
