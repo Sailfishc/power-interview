@@ -31,6 +31,7 @@ public class PermutationsClass {
 
     public static void main(String args[]) {
         char[] input = {'a', 'b'};
+//        char[] input = {'a', 'b', 'c'};
         System.out.println("Permutations of a string");
         permutations(input, input.length);
     }
