@@ -39,7 +39,7 @@ public class TransactionStep1 {
         if (preAssignedId != null && !preAssignedId.isEmpty()) {
             this.id = preAssignedId;
         } else {
-            this.id = IdGenerator.generateTransactionId();
+            this.id = IdGenerator.generate();
         }
         if (!this.id.startsWith("t_")) {
             this.id = "t_" + preAssignedId;
